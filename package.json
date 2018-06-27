@@ -44,7 +44,7 @@
     "ts-jest": "^21.0.1",
     "typescript": "^2.5.2"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@types/react": "^16.0.5",
     "@types/react-native": "^0.48.7",
     "@types/react-redux": "^5.0.9",

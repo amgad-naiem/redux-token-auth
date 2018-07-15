@@ -179,7 +179,7 @@ export type ReduxAction = RegistrationRequestSentAction
   | SignOutRequestFailedAction
   | SetHasVerificationBeenAttemptedAction
 
-export type ReduxAsyncAction = (input?: any) => (dispatch: Dispatch<{}>) => Promise<void>
+export type ReduxAsyncAction = (input?: any) => (dispatch: Dispatch<any>) => Promise<void>
 
 export type VerifyCredentialsFunction = (store: Store<{}>) => void
 

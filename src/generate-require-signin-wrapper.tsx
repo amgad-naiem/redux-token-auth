@@ -13,6 +13,7 @@ const generateRequireSignInWrapper = (
   const requireSignInWrapper = (PageComponent: ComponentClass): ComponentClass => {
     interface WrapperProps {
       readonly isSignedIn: boolean
+      readonly hasVerificationBeenAttempted: boolean
       readonly history: {
         readonly replace: (path: string) => void
       }
@@ -23,8 +24,9 @@ const generateRequireSignInWrapper = (
         const {
           history,
           isSignedIn,
+          hasVerificationBeenAttempted
         } = this.props
-        if (!isSignedIn) {
+        if (!isSignedIn && hasVerificationBeenAttempted) {
           history.replace(redirectPathIfNotSignedIn)
         }
       }
@@ -35,7 +37,8 @@ const generateRequireSignInWrapper = (
     }
 
     const mapStateToProps = (state: ReduxState) => ({
-      isSignedIn: state.reduxTokenAuth.currentUser.isSignedIn
+      isSignedIn: state.reduxTokenAuth.currentUser.isSignedIn,
+      hasVerificationBeenAttempted: state.reduxTokenAuth.currentUser.hasVerificationBeenAttempted
     })
 
     return connect(

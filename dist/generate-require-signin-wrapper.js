@@ -29,8 +29,8 @@ var generateRequireSignInWrapper = function (_a) {
                 return _super !== null && _super.apply(this, arguments) || this;
             }
             GatedPage.prototype.componentWillMount = function () {
-                var _a = this.props, history = _a.history, isSignedIn = _a.isSignedIn;
-                if (!isSignedIn) {
+                var _a = this.props, history = _a.history, isSignedIn = _a.isSignedIn, hasVerificationBeenAttempted = _a.hasVerificationBeenAttempted;
+                if (!isSignedIn && hasVerificationBeenAttempted) {
                     history.replace(redirectPathIfNotSignedIn);
                 }
             };
@@ -40,7 +40,8 @@ var generateRequireSignInWrapper = function (_a) {
             return GatedPage;
         }(React.Component));
         var mapStateToProps = function (state) { return ({
-            isSignedIn: state.reduxTokenAuth.currentUser.isSignedIn
+            isSignedIn: state.reduxTokenAuth.currentUser.isSignedIn,
+            hasVerificationBeenAttempted: state.reduxTokenAuth.currentUser.hasVerificationBeenAttempted
         }); };
         return react_redux_1.connect(mapStateToProps)(GatedPage);
     };

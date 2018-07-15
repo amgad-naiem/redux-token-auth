@@ -29,13 +29,20 @@ var generateRequireSignInWrapper = function (_a) {
                 return _super !== null && _super.apply(this, arguments) || this;
             }
             GatedPage.prototype.componentWillMount = function () {
+                this.checkSignedIn();
+            };
+            GatedPage.prototype.componentDidUpdate = function (prevProps) {
+                if (prevProps.isSignedIn != this.props.isSignedIn || prevProps.hasVerificationBeenAttempted != this.props.hasVerificationBeenAttempted)
+                    this.checkSignedIn();
+            };
+            GatedPage.prototype.render = function () {
+                return React.createElement(PageComponent, __assign({}, this.props));
+            };
+            GatedPage.prototype.checkSignedIn = function () {
                 var _a = this.props, history = _a.history, isSignedIn = _a.isSignedIn, hasVerificationBeenAttempted = _a.hasVerificationBeenAttempted;
                 if (!isSignedIn && hasVerificationBeenAttempted) {
                     history.replace(redirectPathIfNotSignedIn);
                 }
-            };
-            GatedPage.prototype.render = function () {
-                return React.createElement(PageComponent, __assign({}, this.props));
             };
             return GatedPage;
         }(React.Component));

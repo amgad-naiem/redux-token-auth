@@ -21,6 +21,19 @@ const generateRequireSignInWrapper = (
 
     class GatedPage extends React.Component<WrapperProps> {
       public componentWillMount (): void {
+        this.checkSignedIn();
+      }
+
+      public componentDidUpdate (prevProps: WrapperProps): void {
+        if (prevProps.isSignedIn != this.props.isSignedIn || prevProps.hasVerificationBeenAttempted != this.props.hasVerificationBeenAttempted)
+          this.checkSignedIn();
+      }
+
+      public render (): JSX.Element {
+        return <PageComponent {...this.props} />
+      }
+
+      private checkSignedIn(): void {
         const {
           history,
           isSignedIn,
@@ -29,10 +42,6 @@ const generateRequireSignInWrapper = (
         if (!isSignedIn && hasVerificationBeenAttempted) {
           history.replace(redirectPathIfNotSignedIn)
         }
-      }
-
-      public render (): JSX.Element {
-        return <PageComponent {...this.props} />
       }
     }
 
